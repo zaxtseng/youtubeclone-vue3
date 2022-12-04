@@ -6,7 +6,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # 环境变量
-ENV NODE_ENV=production
+# ENV NODE_ENV=production
 # 修改时区
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN echo 'Asia/Shanghai' > /etc/timezone
@@ -14,10 +14,10 @@ RUN echo 'Asia/Shanghai' > /etc/timezone
 COPY package*.json /app
 # 配置依赖源
 RUN npm config set register https://registry.npmmirror.com
+COPY . /app
 # 安装依赖包
 RUN npm install 
 # 将前端项目文件复制到app目录
-COPY . /app
 # build
 RUN npm run build
 
