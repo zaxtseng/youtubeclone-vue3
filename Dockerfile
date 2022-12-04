@@ -14,8 +14,8 @@ RUN echo 'Asia/Shanghai' > /etc/timezone
 COPY package*.json /app
 # 配置依赖源
 RUN npm config set register https://registry.npmmirror.com
-# 只安装dependencies的包
-RUN npm i --production 
+# 安装依赖包
+RUN npm install 
 # 将前端项目文件复制到app目录
 COPY . /app
 # build
@@ -29,4 +29,5 @@ FROM nginx:alpine
 COPY  nginx.conf /etc/nginx/conf.d/default.conf
 # 把打包好的前端项目复制到nginx/html文件夹下, --from=0表示从上一阶段拷贝文件
 COPY --from=0 /app/dist /usr/share/nginx/html/
-
+# docker内环境暴露80端口
+EXPOSE 80
